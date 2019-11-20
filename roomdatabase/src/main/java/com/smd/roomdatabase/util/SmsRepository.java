@@ -27,6 +27,23 @@ public class SmsRepository {
 
     public void insert(Sms sms) {
         new insertAsyncTask(dao).execute(sms);
+
+        allSms = dao.getAllSms();
+    }
+
+    public void deleteAll() {
+        new deleteAsyncTask().execute();
+
+    }
+
+    private class deleteAsyncTask extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            dao.deleteAllSms();
+            return null;
+        }
     }
 
     private class insertAsyncTask extends AsyncTask<Sms, Void, Void> {
