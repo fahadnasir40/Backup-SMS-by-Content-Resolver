@@ -32,13 +32,20 @@ public class MainActivity extends AppCompatActivity {
     SmsRepository smsRepository;
     Button addBackupBtn;
     Button showBackupMsgBtn;
+    Button deleteBackupBtn;
+
+    public static SmsViewModel smsViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        smsViewModel = new SmsViewModel(getApplicationContext());
+
         addBackupBtn = findViewById(R.id.backupBtn);
         showBackupMsgBtn = findViewById(R.id.showMessages);
+        deleteBackupBtn = findViewById(R.id.deleteMessages);
 
         smsRepository = new SmsRepository(getApplicationContext());
 
@@ -58,12 +65,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        deleteBackupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(smsViewModel !=null)
+                   smsViewModel.deleteAllSms();
+
+
+                Toast.makeText(getApplicationContext(), "SMS Backup deleted",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void backupSms(){
         LiveData<List<Sms>> backedSmsList;
         List<Sms> smsList;
-        SmsViewModel model = new SmsViewModel(getApplicationContext());
+
         //backedSmsList = model.getAllSms().;
         //smsList = backedSmsList.getValue();
 
@@ -93,15 +112,15 @@ public class MainActivity extends AppCompatActivity {
                 //objSms.setFolderName("inbox");
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     String finalStatee = statee;
-                    model.getAllSms().observe(this, new Observer<List<Sms>>() {
+                    smsViewModel.getAllSms().observe(this, new Observer<List<Sms>>() {
                         @Override
                         public void onChanged(List<Sms> locationTrackings) {
                             //update cached copy of locations
-                            if(model.getAllSms() == null) {
+                            if(smsViewModel.getAllSms() == null) {
                                 smsRepository.insert(new Sms(id, address, msg, finalStatee, time, "inbox"));
                                 Log.d("qwerty", "In first if null");
                             }
-                            else if(!model.getAllSms().getValue().stream().filter(o -> o.getMessage_id().equals(id)).findFirst().isPresent()){
+                            else if(!smsViewModel.getAllSms().getValue().stream().filter(o -> o.getMessage_id().equals(id)).findFirst().isPresent()){
                                 smsRepository.insert(new Sms(id, address, msg, finalStatee, time, "inbox"));
                             }
                         }
@@ -112,16 +131,16 @@ public class MainActivity extends AppCompatActivity {
                 //objSms.setFolderName("sent");
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     String finalStatee = statee;
-                    model.getAllSms().observe(this, new Observer<List<Sms>>() {
+                    smsViewModel.getAllSms().observe(this, new Observer<List<Sms>>() {
                         @Override
                         public void onChanged(List<Sms> locationTrackings) {
                             //update cached copy of locations
-                            if(model.getAllSms() == null) {
-                                smsRepository.insert(new Sms(id, address, msg, finalStatee, time, "inbox"));
+                            if(smsViewModel.getAllSms() == null) {
+                                smsRepository.insert(new Sms(id, address, msg, finalStatee, time, "sent"));
                                 Log.d("qwerty", "In first if null");
                             }
-                            else if(!model.getAllSms().getValue().stream().filter(o -> o.getMessage_id().equals(id)).findFirst().isPresent()){
-                                smsRepository.insert(new Sms(id, address, msg, finalStatee, time, "inbox"));
+                            else if(!smsViewModel.getAllSms().getValue().stream().filter(o -> o.getMessage_id().equals(id)).findFirst().isPresent()){
+                                smsRepository.insert(new Sms(id, address, msg, finalStatee, time, "sent"));
                             }
                         }
                     });
