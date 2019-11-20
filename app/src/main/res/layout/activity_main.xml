@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:background="@color/blue1Color"
     android:orientation="vertical">
+
+
 
     <Button
         android:id="@+id/backupBtn"
         android:text="Backup SMS"
+
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="64dp"
+        android:layout_below="@id/textView"
+        android:layout_marginEnd="80dp"
+        android:background="@color/skyBlueColor"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/showMessages"
-        android:text="Show backed up messages"
+        android:text="View Backed Up messages"
+
+        android:textColor="@android:color/white"
+        android:background="@color/skyBlueColor"
+        android:textStyle="bold"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="32dp"
+        android:layout_below="@id/backupBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -22,13 +42,49 @@
     android:id="@+id/deleteMessages"
     android:text="Delete backed up messages"
     android:layout_width="match_parent"
+
+        android:background="@color/darkBlueColor"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="64dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="32dp"
+        android:layout_below="@id/showMessages"
     android:layout_height="wrap_content"/>
 
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        style="@style/Widget.AppCompat.Spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
 
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="32dp"
 
-</LinearLayout>
+        android:layout_centerInParent="true"
+        android:layout_below="@id/deleteMessages"
+        android:visibility="gone"
+        android:clickable="false"
+
+        android:indeterminateDrawable="@drawable/progress" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="32dp"
+
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:text="Backup SMS Application"
+        android:textColor="@android:color/white" />
+
+
+</RelativeLayout>

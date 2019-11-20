@@ -29,6 +29,7 @@ public class Sms {
     private String folder_name;
 
     public Sms(String message_id, String sender_name, String message, String readState, String time, String folder_name) {
+
         this.message_id = message_id;
         this.sender_name = sender_name;
         this.message = message;

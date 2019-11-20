@@ -34,12 +34,12 @@ public class SmsAdapter extends RecyclerView.Adapter<SmsAdapter.SmsViewHolder> {
         if(smsList != null){
             Sms current = smsList.get(position);
 
-            holder.id.setText("Message Id:       " + current.getMessage_id());
-            holder.senderName.setText("Sender Name:    " + current.getSender_name());
-            holder.msgDetail.setText("Message Description:              " + current.getMessage());
-            holder.readState.setText("Read/Unread:      " + current.getReadState());
-            holder.time.setText("Time:              " + current.getTime());
-            holder.folderName.setText("Inbox/Sent:      " + current.getFolder_name());
+            holder.id.setText("Message id:\t\t" + current.getMessage_id());
+            holder.senderName.setText("Sender Name:\t\t" + current.getSender_name());
+            holder.msgDetail.setText("\nMessage Description\n" + current.getMessage() + "\n");
+            holder.readState.setText("Read/Unread:\t" + current.getReadState() );
+            holder.time.setText("Time:\t" + current.getTime() );
+            holder.folderName.setText("Inbox/Sent:\t" + current.getFolder_name());
         }
     }
 
