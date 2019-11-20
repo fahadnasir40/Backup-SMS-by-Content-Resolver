@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         smsViewModel = new SmsViewModel(getApplicationContext());
 
         addBackupBtn = findViewById(R.id.backupBtn);
